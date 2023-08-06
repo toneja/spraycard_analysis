@@ -24,6 +24,8 @@ import subprocess
 import sys
 import time
 
+import analyze_spraycards
+
 
 def batch_process(image_folder):
     """docstring goes here"""
@@ -39,13 +41,14 @@ def batch_process(image_folder):
         # Check if the current item is a file
         if os.path.isfile(current_image):
             # Check if the image has already been processed
-            if os.path.exists(f"spraycards/images/{os.path.basename(current_image)}.tif"):
+            if os.path.exists(f"spraycards/images/{os.path.basename(current_image)}"):
                 if os.path.exists(
-                    f"spraycards/results/Results_{os.path.basename(current_image)}.csv"
+                    f"spraycards/results/Results_{os.path.splitext(os.path.basename(current_image))[0]}.csv"
                 ):
                     print(f"Skipping image: {current_image}, already processed.")
                     continue
             print(f"Processing image: {current_image}")
+            print(f"DEBUG - {os.path.basename(current_image)}")
             processed += 1
             print(f"{current_image}")
             # Execute the ImageJ macro for the current folder
@@ -61,18 +64,24 @@ def batch_process(image_folder):
             except subprocess.CalledProcessError as exception:
                 print(f"Error executing the macro: {exception}")
 
+    # Process the ImageJ results
+    os.chdir(os.path.dirname(sys.argv[0]))
+    for file in os.listdir("ImageJ/spraycards/results"):
+        if file.endswith(".csv"):
+            analyze_spraycards.summarize_droplet_sizes(f"ImageJ/spraycards/results/{file}")
+
     # Calculate the elapsed time
     elapsed_time = time.time() - start_time
     # Print elapsed time in H:M:S format
     print(
         f"\nElapsed time: {time.strftime('%H:%M:%S', time.gmtime(elapsed_time))}"
     )
-    print(f"Albums processed: {processed}")
+    print(f"Images processed: {processed}")
     input("Batch processing complete. Press ENTER.\n")
 
 
 if __name__ == "__main__":
-    os.chdir(os.path.dirname(sys.argv[0]))
+    os.chdir(f"{os.path.dirname(sys.argv[0])}/ImageJ")
     if len(sys.argv) > 1:
         IMAGE_FOLDER = sys.argv[1]
     else:
