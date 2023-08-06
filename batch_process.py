@@ -23,6 +23,7 @@ import os
 import subprocess
 import sys
 import time
+import zipfile
 
 import analyze_spraycards
 import compile_workbook
@@ -74,6 +75,15 @@ def batch_process(image_folder):
 
     # Compile the results into a workbook
     compile_workbook.main()
+
+    # Zip the images
+    with zipfile.ZipFile("SprayCard_Charts.zip", "w", zipfile.ZIP_DEFLATED) as zipf:
+        for root, _, files in os.walk("results"):
+            for file in files:
+                if file.endswith((".png")):
+                    file_path = os.path.join(root, file)
+                    arcname = os.path.relpath(file_path, "results")
+                    zipf.write(file_path, arcname)
 
     # Calculate the elapsed time
     elapsed_time = time.time() - start_time
