@@ -22,10 +22,10 @@ def summarize_droplet_sizes(csv_file_path):
         # Process each row in the CSV
         for row in reader:
             # Filter bad ROIs
-            aspect_ratio = float(row["AR"])
-            if aspect_ratio >= 2:
-                bad_rois += 1
-                continue
+            # aspect_ratio = float(row["AR"])
+            # if aspect_ratio >= 2:
+            #     bad_rois += 1
+            #     continue
             good_rois += 1
 
             # Get the Feret diameter value from the current row
