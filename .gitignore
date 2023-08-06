@@ -3,4 +3,5 @@ __pycache__
 *.csv
 *.png
 *.tif
+*.xlsx
 *.zip

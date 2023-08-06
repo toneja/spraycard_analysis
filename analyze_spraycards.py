@@ -12,7 +12,7 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
+# GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
@@ -61,7 +61,7 @@ def summarize_droplet_sizes(csv_file_path):
     sorted_summary = dict(sorted(summary.items()))
 
     # Write the summary to a new CSV file
-    output_csv_file = f"{spraycard}_summary.csv"
+    output_csv_file = f"results/{spraycard}_summary.csv"
     with open(output_csv_file, "w", newline="") as csvfile:
         fieldnames = ["Bin (microns)", "Count"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -89,7 +89,7 @@ def summarize_droplet_sizes(csv_file_path):
     plt.ylabel("Count")
     plt.title(f"{spraycard} - Droplet Size Summary")
     plt.grid(axis="y")
-    plt.savefig(f"{spraycard}_results.png", dpi=300, bbox_inches='tight')
+    plt.savefig(f"results/{spraycard}_results.png", dpi=300, bbox_inches="tight")
 
 
 if __name__ == "__main__":

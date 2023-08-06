@@ -49,7 +49,7 @@ else
 fi
 
 # Install the required Python3 modules
-modules="matplotlib"
+modules="matplotlib openpyxl"
 sudo pip3 install $modules
 
 # Install ImageJ

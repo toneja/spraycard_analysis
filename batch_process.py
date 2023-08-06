@@ -12,7 +12,7 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
+# GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
@@ -25,6 +25,7 @@ import sys
 import time
 
 import analyze_spraycards
+import compile_workbook
 
 
 def batch_process(image_folder):
@@ -48,7 +49,6 @@ def batch_process(image_folder):
                     print(f"Skipping image: {current_image}, already processed.")
                     continue
             print(f"Processing image: {current_image}")
-            print(f"DEBUG - {os.path.basename(current_image)}")
             processed += 1
             print(f"{current_image}")
             # Execute the ImageJ macro for the current folder
@@ -68,14 +68,17 @@ def batch_process(image_folder):
     os.chdir(os.path.dirname(sys.argv[0]))
     for file in os.listdir("ImageJ/spraycards/results"):
         if file.endswith(".csv"):
-            analyze_spraycards.summarize_droplet_sizes(f"ImageJ/spraycards/results/{file}")
+            analyze_spraycards.summarize_droplet_sizes(
+                f"ImageJ/spraycards/results/{file}"
+            )
+
+    # Compile the results into a workbook
+    compile_workbook.main()
 
     # Calculate the elapsed time
     elapsed_time = time.time() - start_time
     # Print elapsed time in H:M:S format
-    print(
-        f"\nElapsed time: {time.strftime('%H:%M:%S', time.gmtime(elapsed_time))}"
-    )
+    print(f"\nElapsed time: {time.strftime('%H:%M:%S', time.gmtime(elapsed_time))}")
     print(f"Images processed: {processed}")
     input("Batch processing complete. Press ENTER.\n")
 

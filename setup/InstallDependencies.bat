@@ -7,6 +7,7 @@ if %errorlevel% neq 0 (
     exit /b
 )
 pip3.exe install matplotlib
+pip3.exe install openpyxl
 
 REM Set the download URL and destination file
 set downloadURL=https://wsr.imagej.net/distros/win/ij153-win-java8.zip
