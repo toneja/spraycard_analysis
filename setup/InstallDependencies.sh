@@ -66,5 +66,9 @@ if [ $? != 0 ]; then
 fi
 rm ij153-linux64-java8.zip
 echo "Installed ImageJ application."
+
+# make required subfolders
+mkdir -p "Spraycard Images" results ImageJ\spraycards\images ImageJ\spraycards\results
+
 echo
 echo "Setup Complete!"

@@ -39,6 +39,9 @@ del %destinationFile%
 REM Done!
 echo ImageJ has been downloaded and unpacked successfully.
 
+REM make required subfolders
+mkdir "..\Spraycard Images" ..\results ..\ImageJ\spraycards\images ..\ImageJ\spraycards\results
+
 echo Setup Complete!
 
 pause
