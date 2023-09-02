@@ -78,7 +78,7 @@ def main():
     # Get list of all usable csv files in the results directory
     csv_files = []
     for file in os.listdir("results"):
-        if not (file.endswith("_summary.csv")):
+        if not (file.endswith(".csv")):
             continue
         file_path = os.path.join("results", file)
         csv_files.append(file_path)
