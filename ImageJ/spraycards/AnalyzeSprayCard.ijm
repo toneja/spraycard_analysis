@@ -17,7 +17,7 @@ run("Set Scale...", "distance=pixelWidth known=knownDistance unit=microns");
 run("Subtract Background...", "rolling=10 light");
 
 // Generate a binary image from our image
-setThreshold(0, 240);
+// setThreshold(0, 240);
 setOption("BlackBackground", false);
 run("Convert to Mask", "method=Default background=Light");
 run("Fill Holes");
